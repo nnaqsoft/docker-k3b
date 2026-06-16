@@ -25,7 +25,6 @@ docker run -d \
   --device /dev/sg0:/dev/sg0 \
   -v "$PWD/config:/config:rw" \
   -v "$PWD/media:/storage:rw" \
-  -e ENABLE_CJK_FONT=1 \
   -e DARK_MODE=1 \
   spoisseroux/k3b-web:latest
 ```
@@ -46,7 +45,7 @@ anyway, add `--cap-add SYS_RAWIO`.
 | Variable | Purpose |
 | --- | --- |
 | `USER_ID` / `GROUP_ID` | App UID/GID (default 1000); match your source-file owner. |
-| `ENABLE_CJK_FONT=1` | Render CJK (e.g. Japanese) filenames. |
+| `ENABLE_CJK_FONT` | Not required: CJK (e.g. Japanese) fonts are baked into the image. |
 | `DARK_MODE=1` | Dark web UI and Qt theme. |
 | `WEB_FILE_MANAGER=1` | Browse `/storage` from the browser. |
 | `SUP_GROUP_IDS` | Manual device-group fallback. |

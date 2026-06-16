@@ -9,7 +9,13 @@ FROM jlesage/baseimage-gui:debian-12-v4.11.3
 # Theming / session helpers:
 #   adwaita-qt   : Qt theme so DARK_MODE=1 styles the K3b UI
 #   dbus-x11     : provides dbus-run-session for the per-session bus K3b expects
-RUN add-pkg k3b cdrdao dvd+rw-tools wodim adwaita-qt dbus-x11
+RUN add-pkg k3b cdrdao dvd+rw-tools wodim adwaita-qt dbus-x11 fonts-wqy-zenhei
+
+# dbus registers a dpkg-statoverride for the "messagebus" group, but the baseimage
+# rebuilds /etc/group at startup without it, leaving the override dangling so any
+# runtime apt/dpkg (CJK font installer, INSTALL_PACKAGES) aborts. Remove it at build.
+RUN dpkg-statoverride --list 2>/dev/null | grep -w messagebus | awk '{print $NF}' \
+      | xargs -r -n1 dpkg-statoverride --remove || true
 
 # App start script.
 COPY startapp.sh /startapp.sh

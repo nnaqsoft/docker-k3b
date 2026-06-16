@@ -19,7 +19,8 @@ services:
       - ./config:/config:rw          # persistent app settings
       - ./media:/storage:rw          # your source files and rip/image output
     environment:
-      - ENABLE_CJK_FONT=1            # render Japanese/Chinese/Korean filenames
+      # CJK fonts (Japanese/Chinese/Korean) are baked into the image, so
+      # ENABLE_CJK_FONT is not needed.
       - DARK_MODE=1                  # dark web UI and Qt theme (via adwaita-qt)
       - WEB_FILE_MANAGER=1           # browse /storage from the browser
       # - USER_ID=1000               # match the owner of your source files

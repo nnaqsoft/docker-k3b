@@ -42,7 +42,6 @@ docker run -d \
   --device /dev/sg0:/dev/sg0 \
   -v "$PWD/config:/config:rw" \
   -v "$PWD/media:/storage:rw" \
-  -e ENABLE_CJK_FONT=1 \
   -e DARK_MODE=1 \
   spoisseroux/k3b-web:latest
 ```
@@ -137,7 +136,7 @@ base image. The full list is in its documentation; the ones most relevant here:
 | Variable | Purpose |
 | --- | --- |
 | `USER_ID` / `GROUP_ID` | UID/GID the app runs as (default 1000). Match the owner of your mapped source files to avoid permission issues. |
-| `ENABLE_CJK_FONT=1` | Installs WenQuanYi Zen Hei so Chinese/Japanese/Korean filenames render instead of missing-glyph boxes. |
+| `ENABLE_CJK_FONT` | Not required: the WenQuanYi Zen Hei CJK font is baked into this image, so Chinese/Japanese/Korean filenames render out of the box. The base-image variable still exists but you do not need to set it. |
 | `DARK_MODE=1` | Dark web UI and dark Qt theme for K3b (via `adwaita-qt`). |
 | `WEB_FILE_MANAGER=1` | Browser-based file manager into the container, handy for inspecting `/storage`. |
 | `WEB_AUDIO=1` | Stream app audio to the browser, to preview tracks. |
