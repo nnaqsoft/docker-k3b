@@ -171,6 +171,38 @@ base image. The full list is in its documentation; the ones most relevant here:
 
 ---
 
+## Dark mode
+
+The UI ships in light mode by default. Set `DARK_MODE=1` to switch the noVNC web shell
+**and** the K3b Qt interface to a dark theme (the image includes `adwaita-qt`, which is what
+themes the Qt side).
+
+**Enable** (docker run):
+
+```bash
+docker run -d ... -e DARK_MODE=1 ... spoisseroux/k3b-web:latest
+```
+
+**Enable** (docker compose), in the service's `environment:` block:
+
+```yaml
+    environment:
+      - DARK_MODE=1
+```
+
+**Disable**: remove the variable (or set `DARK_MODE=0`) and recreate the container:
+
+```bash
+docker rm -f k3b && docker run -d ... spoisseroux/k3b-web:latest   # no DARK_MODE
+# or with compose: delete the DARK_MODE line, then:
+docker compose up -d --force-recreate
+```
+
+The setting is read at container start, so changing it means recreating the container (a
+plain restart keeps the old value). Your K3b project settings in `/config` are unaffected.
+
+---
+
 ## Security note
 
 noVNC gives anyone who can reach the port a full desktop session on the container. Do not
