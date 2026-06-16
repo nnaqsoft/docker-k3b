@@ -1,0 +1,8 @@
+# Local runtime data created by the compose example.
+config/
+music/
+storage/
+
+# Editor / OS cruft.
+.DS_Store
+*.swp

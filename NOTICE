@@ -1,0 +1,60 @@
+docker-gcdmaster
+================
+
+This image is UNOFFICIAL. It is not affiliated with, endorsed by, or supported
+by the cdrdao project, the gcdmaster authors, the K3b project, the Xfce project,
+or jlesage. All trademarks belong to their respective owners.
+
+The wrapper in this repository (Dockerfile, shell scripts, compose example,
+documentation, CI config) is licensed under the MIT License. See LICENSE.
+
+The published image bundles third-party software, installed UNMODIFIED from the
+Debian 12 (bookworm) archive. Each component keeps its own license. Because the
+binaries are unmodified Debian packages, the corresponding source is available
+from Debian's published sources for the matching package versions.
+
+
+Bundled components
+------------------
+
+1. jlesage/baseimage-gui (base image)
+   License : MIT
+   Source  : https://github.com/jlesage/docker-baseimage-gui
+   Provides: TigerVNC, noVNC, NGINX, Openbox, and the container init system.
+
+2. cdrdao  (disc-at-once CD recording engine)
+   License : GPL-2.0-or-later
+   Source  : https://tracker.debian.org/pkg/cdrdao
+   Upstream: https://cdrdao.sourceforge.net/
+
+3. gcdmaster  (GTK GUI for cdrdao, shipped in the cdrdao source)
+   License : GPL-2.0-or-later
+   Source  : https://tracker.debian.org/pkg/cdrdao
+
+4. cdrkit / wodim  (wodim, optional data-CD backend)
+   License : GPL-2.0-only
+   Source  : https://tracker.debian.org/pkg/cdrkit
+
+5. dvd+rw-tools  (optional DVD backend)
+   License : GPL-2.0-or-later
+   Source  : https://tracker.debian.org/pkg/dvd+rw-tools
+
+For the K3b sibling image, additionally:
+
+6. k3b  (KDE CD/DVD burning suite)
+   License : GPL-2.0-or-later
+   Source  : https://tracker.debian.org/pkg/k3b
+   Upstream: https://apps.kde.org/k3b/
+
+
+Source availability
+-------------------
+
+To obtain the complete corresponding source for any GPL component above, fetch
+the matching Debian source package, for example:
+
+   apt-get source cdrdao
+
+run against a Debian 12 (bookworm) apt source list, or browse the Debian source
+tracker links listed above. The exact package versions in any given build are
+those present in the Debian 12 archive at image build time.

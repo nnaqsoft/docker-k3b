@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# /etc/cont-env.d/SUP_GROUP_IDS_INTERNAL  (must be executable)
+#
+# Emit a comma-separated list of GIDs that own any optical devices passed into
+# the container. The jlesage/baseimage-gui init system reads this file's stdout
+# and adds each GID as a supplementary group for the unprivileged "app" user, so
+# that user can read and write the burner without the image hardcoding a GID
+# (which varies per host: cdrom, optical, root, etc.).
+#
+# Exit code 100 tells the base image to leave the variable unset, which is the
+# correct behaviour when no optical device is mapped (the web UI still serves;
+# burning simply is not possible until a device is present).
+#
+gids=""
+for dev in /dev/sr* /dev/scd* /dev/sg* /dev/cdrom /dev/dvd /dev/cdrw /dev/dvdrw; do
+    [ -e "$dev" ] || continue
+    g="$(stat -c '%g' "$dev" 2>/dev/null)" || continue
+    case ",$gids," in
+        *",$g,"*) : ;;                       # already collected this GID
+        *) gids="${gids:+$gids,}$g" ;;
+    esac
+done
+
+[ -n "$gids" ] && printf '%s' "$gids" || exit 100
